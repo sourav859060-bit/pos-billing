@@ -1,0 +1,20 @@
+{% extends "pos/base.html" %}{% load pos_extras %}
+{% block content %}
+<h2 style="margin-bottom:12px">Dashboard</h2>
+<div class="cards">
+  <div class="card"><small>Bills</small><b>{{ bills }}</b></div>
+  <div class="card"><small>Sales</small><b>{{ revenue|inr }}</b></div>
+  <div class="card"><small>Refunds</small><b>{{ refunds|inr }}</b></div>
+  <div class="card"><small>Expenses</small><b>{{ expenses|inr }}</b></div>
+  <div class="card"><small>Net</small><b>{{ net|inr }}</b></div>
+</div>
+<div class="cards">
+  <div class="card"><h3>By payment</h3>
+    {% for name, total in by_payment %}<div class="tot"><span>{{ name }}</span><span>{{ total|inr }}</span></div>{% endfor %}
+  </div>
+  <div class="card"><h3>Low stock</h3>
+    {% for p in low_stock %}<div class="tot"><span>{{ p.name }}</span><span>{{ p.stock }} left</span></div>
+    {% empty %}<p class="mut">All items are well stocked.</p>{% endfor %}
+  </div>
+</div>
+{% endblock %}

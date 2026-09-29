@@ -1,0 +1,21 @@
+{% extends "pos/base.html" %}{% load pos_extras %}
+{% block title %}{{ sale.invoice_no }}{% endblock %}
+{% block content %}
+<div class="card receipt">
+  <h3 style="text-align:center">Loom&amp;Ledger Textiles</h3>
+  <p style="text-align:center;margin:2px">Tax invoice {{ sale.invoice_no }}{% if sale.is_void %} <b class="void">(VOIDED)</b>{% endif %}<br>
+    {{ sale.created_at|date:"Y-m-d H:i" }} · Cashier {{ sale.cashier.display_name|default:"-" }}</p>
+  <hr>
+  {% for i in sale.items.all %}<div class="tot"><span>{{ i.name }} × {{ i.qty }}</span><span>{{ i.line_total|inr }}</span></div>{% endfor %}
+  <hr>
+  <div class="tot"><span>Subtotal</span><span>{{ sale.subtotal|inr }}</span></div>
+  <div class="tot"><span>Discount ({{ sale.discount_pct|floatformat:"-2" }}%)</span><span>−{{ sale.discount_amount|inr }}</span></div>
+  <div class="tot"><span>GST 5%</span><span>{{ sale.tax|inr }}</span></div>
+  <div class="tot f"><span>Total ({{ sale.payment }})</span><span>{{ sale.total|inr }}</span></div>
+  <p style="text-align:center">Thank you. Visit again.</p>
+</div>
+<div class="row np receipt-actions">
+  <button class="b" onclick="window.print()">Print bill</button>
+  <a class="btn" href="{% url 'pos:billing' %}">New bill</a>
+</div>
+{% endblock %}

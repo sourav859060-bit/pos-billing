@@ -1,0 +1,16 @@
+{% extends "pos/base.html" %}
+{% block content %}
+<div class="hd"><h2>{{ title }}</h2><a class="btn b" href="{{ new_url }}">Add {{ singular|lower }}</a></div>
+<div class="tw"><table>
+  <tr>{% for h in headers %}<th>{{ h }}</th>{% endfor %}<th></th></tr>
+  {% for r in rows %}
+  <tr>
+    {% for c in r.cells %}<td>{% if c is True %}Yes{% elif c is False %}No{% else %}{{ c }}{% endif %}</td>{% endfor %}
+    <td class="ac">
+      <a class="btn g" href="{{ r.edit }}">Edit</a>
+      <form method="post" action="{{ r.delete }}" onsubmit="return confirm('Delete this {{ singular|lower }}?')">{% csrf_token %}<button class="g">Delete</button></form>
+    </td>
+  </tr>
+  {% empty %}<tr><td colspan="{{ headers|length|add:1 }}" class="mut">Nothing here yet.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

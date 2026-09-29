@@ -1,0 +1,73 @@
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#eef1f4;--c:#fff;--t:#14202b;--m:#66737f;--a:#1e3a5f;--a2:#c8871e;--b:#d9dfe5;--r:#b3261e;--ok:#1b6e3c}
+@media(prefers-color-scheme:dark){:root{--bg:#0f151b;--c:#19222b;--t:#e8edf2;--m:#93a0ac;--a:#6fa3dc;--a2:#e0a441;--b:#2b3743;--r:#f2857e;--ok:#6fcf97}.b{color:#0f151b!important}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font:15px/1.45 "Segoe UI",system-ui,sans-serif}
+h2,h3{font-family:Georgia,"Times New Roman",serif;margin:0}
+button,input,select{font:inherit;color:inherit}
+input,select{width:100%;padding:8px 10px;border:1px solid var(--b);border-radius:6px;background:var(--c)}
+input[type=checkbox]{width:auto;margin-left:8px}
+button,.btn{cursor:pointer;border:1px solid var(--b);background:var(--c);padding:7px 12px;border-radius:6px;text-decoration:none;color:var(--t);display:inline-block;text-align:center}
+.b{background:var(--a);color:#fff;border-color:var(--a)}
+.g{padding:4px 9px;font-size:13px}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--a2);outline-offset:1px}
+label{display:block;margin:8px 0;font-size:13px;color:var(--m)}
+form{margin:0}
+
+#app{display:flex;min-height:100vh}
+nav{width:190px;background:var(--a);padding:14px 10px;display:flex;flex-direction:column;gap:4px}
+nav .br{font:700 19px Georgia,serif;color:#fff;margin:4px 8px 14px}
+nav a{color:#dfe8f2;text-decoration:none;padding:9px 10px;border-radius:6px}
+nav a.on{background:rgba(255,255,255,.16);color:#fff;font-weight:600}
+main{flex:1;padding:18px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:8px;flex-wrap:wrap}
+.hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.tw{overflow-x:auto;background:var(--c);border:1px solid var(--b);border-radius:8px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--b);white-space:nowrap}
+th{color:var(--m);font-weight:600;font-size:13px}
+.ac{display:flex;gap:4px;align-items:center}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.card{background:var(--c);border:1px solid var(--b);border-radius:8px;padding:12px}
+.card small{color:var(--m)}
+.card b{display:block;font:600 22px Georgia,serif}
+.fm{max-width:440px}
+.fm .err{display:block}
+
+.bl{display:grid;grid-template-columns:1fr 340px;gap:14px}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}
+.pc{display:flex;flex-direction:column;text-align:left;gap:2px;padding:10px}
+.pc span{color:var(--a);font-weight:700}
+.pc small{color:var(--m)}
+.cart{background:var(--c);border:1px solid var(--b);border-radius:8px;padding:12px;align-self:start}
+.ln{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:5px 0;border-bottom:1px dashed var(--b)}
+.tot{display:flex;justify-content:space-between;padding:2px 0}
+.tot.f{font:700 18px Georgia,serif;margin-top:6px}
+.row{display:flex;gap:8px;margin-top:12px}
+.row>*{flex:1}
+
+.receipt{max-width:400px;font-family:monospace;font-size:13px;margin:0 auto}
+.receipt-actions{max-width:400px;margin:12px auto}
+#login{max-width:340px;margin:12vh auto;padding:22px;background:var(--c);border:1px solid var(--b);border-radius:10px}
+.err{color:var(--r);font-size:13px;min-height:18px}
+.void{color:var(--r)}
+.mut{color:var(--m);font-size:13px}
+.msg{padding:8px 12px;border-radius:6px;margin-bottom:12px;background:var(--c);border:1px solid var(--b)}
+.msg.error{color:var(--r);border-color:var(--r)}
+.msg.success{color:var(--ok);border-color:var(--ok)}
+
+@media(max-width:800px){
+  #app{flex-direction:column;padding-bottom:62px}
+  nav{position:fixed;bottom:0;left:0;right:0;width:auto;flex-direction:row;overflow-x:auto;padding:6px;z-index:5;padding-bottom:calc(6px + env(safe-area-inset-bottom,0px))}
+  nav .br{display:none}
+  nav a{white-space:nowrap;padding:8px 12px;text-align:center}
+  main{padding:12px}
+  .bl{grid-template-columns:1fr}
+}
+@media print{
+  .np{display:none!important}
+  body{background:#fff;color:#000}
+  #app{display:block}
+  main{padding:0}
+  .receipt{border:0;max-width:none}
+}

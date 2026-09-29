@@ -1,0 +1,16 @@
+{% load static %}<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Loom&amp;Ledger POS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="{% static 'pos/app.css' %}">
+</head><body>
+<form id="login" method="post">{% csrf_token %}
+  <h2>Loom&amp;Ledger POS</h2>
+  <p class="mut">Sign in as admin or billing staff.</p>
+  <label>Username{{ form.username }}</label>
+  <label>Password{{ form.password }}</label>
+  <div class="err">{% for e in form.non_field_errors %}{{ e }}{% endfor %}</div>
+  <input type="hidden" name="next" value="{{ next }}">
+  <button class="b" style="width:100%">Sign in</button>
+  <p class="mut">Demo: admin / admin123 · staff / staff123</p>
+</form>
+</body></html>

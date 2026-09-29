@@ -1,0 +1,23 @@
+{% load static %}<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>{% block title %}Loom&amp;Ledger POS{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧵</text></svg>">
+<link rel="stylesheet" href="{% static 'pos/app.css' %}">
+</head><body>
+<div id="app">
+  <nav class="np">
+    <div class="br">Loom&amp;Ledger</div>
+    {% for n in nav %}<a href="{{ n.url }}"{% if n.on %} class="on"{% endif %}>{{ n.label }}</a>{% endfor %}
+  </nav>
+  <main>
+    <div class="top np">
+      <span class="mut">{{ user.display_name }} · {{ user.role_label }}</span>
+      <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="g">Sign out</button></form>
+    </div>
+    {% for m in messages %}<div class="msg {{ m.tags }} np">{{ m }}</div>{% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+{% block scripts %}{% endblock %}
+</body></html>

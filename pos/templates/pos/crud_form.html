@@ -1,0 +1,14 @@
+{% extends "pos/base.html" %}
+{% block content %}
+<div class="hd"><h2>{{ title }}</h2></div>
+<form method="post" class="card fm">{% csrf_token %}
+  {{ form.non_field_errors }}
+  {% for f in form %}
+  <label>{{ f.label }}{{ f }}
+    {% if f.help_text %}<small class="mut">{{ f.help_text }}</small>{% endif %}
+    {% for e in f.errors %}<span class="err">{{ e }}</span>{% endfor %}
+  </label>
+  {% endfor %}
+  <div class="row"><button class="b">Save</button><a class="btn" href="{{ back_url }}">Cancel</a></div>
+</form>
+{% endblock %}

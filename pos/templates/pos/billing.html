@@ -1,0 +1,22 @@
+{% extends "pos/base.html" %}{% load static %}
+{% block content %}
+{% csrf_token %}
+{{ products|json_script:"products-data" }}
+<div class="bl" id="billing" data-checkout-url="{% url 'pos:checkout' %}">
+  <div>
+    <h2>Billing</h2>
+    <input id="bs" placeholder="Search product or SKU" autocomplete="off">
+    <div class="pg" id="pg"></div>
+  </div>
+  <div class="cart">
+    <h3>Current bill</h3>
+    <div id="lines"></div>
+    <label>Discount %<input id="disc" type="number" min="0" max="100" value="0"></label>
+    <label>Payment<select id="pay">{% for p in payments %}<option>{{ p }}</option>{% endfor %}</select></label>
+    <div id="totals"></div>
+    <div class="err" id="cerr"></div>
+    <div class="row"><button class="b" id="pay-btn">Take payment &amp; print bill</button><button id="clear">Clear</button></div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{% static 'pos/billing.js' %}"></script>{% endblock %}

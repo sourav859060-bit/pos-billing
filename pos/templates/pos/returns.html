@@ -1,0 +1,29 @@
+{% extends "pos/base.html" %}{% load pos_extras %}
+{% block content %}
+<div class="hd"><h2>Returns</h2></div>
+<form method="get" class="row" style="margin:0 0 12px">
+  <input name="invoice" placeholder="Invoice no, e.g. INV0001" value="{{ invoice }}">
+  <button class="b" style="flex:0 0 auto">Find bill</button>
+</form>
+{% if invoice %}
+  {% if sale %}
+  <div class="tw" style="margin-bottom:14px"><table>
+    {% for i in sale.items.all %}
+    <tr><td>{{ i.name }}</td><td>Sold {{ i.qty }}</td><td>Returned {{ i.returned_qty }}</td>
+      <td>{% if i.returnable %}
+        <form method="post" action="{% url 'pos:return_item' i.pk %}" class="ac">{% csrf_token %}
+          <input name="qty" type="number" min="1" max="{{ i.returnable }}" value="1" style="width:70px" aria-label="Quantity">
+          <input name="reason" placeholder="Reason (size, defect…)" aria-label="Reason">
+          <button class="g b">Refund</button>
+        </form>{% endif %}</td></tr>
+    {% endfor %}
+  </table></div>
+  {% else %}<p class="mut">No active bill with that number.</p>{% endif %}
+{% endif %}
+<div class="tw"><table>
+  <tr><th>Date</th><th>Invoice</th><th>Item</th><th>Qty</th><th>Refund</th><th>Reason</th></tr>
+  {% for r in returns %}
+  <tr><td>{{ r.created_at|date:"Y-m-d H:i" }}</td><td>{{ r.sale.invoice_no }}</td><td>{{ r.item_name }}</td><td>{{ r.qty }}</td><td>{{ r.refund|inr }}</td><td>{{ r.reason }}</td></tr>
+  {% empty %}<tr><td colspan="6" class="mut">No returns recorded.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}
